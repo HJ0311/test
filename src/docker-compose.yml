@@ -11,7 +11,7 @@ services:
       - wordpress_network
     restart: always
     env_file:
-      - .env
+      - ../.env
 
 volumes:
   db_data:
