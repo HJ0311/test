@@ -17,6 +17,7 @@ services:
 
 volumes:
   db_data:
+    type: bind
 
 networks:
   wordpress_network:
