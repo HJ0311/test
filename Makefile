@@ -1,5 +1,5 @@
-DOCKER_COMPOSE := docker-compose
-DOCKER_COMPOSE_FILE := ./src/docker-compose.yml
+DOCKER_COMPOSE := /usr/local/bin/docker-compose
+DOCKER_COMPOSE_FILE := src/docker-compose.yml
 
 # COMMAND
 .PHONY: up down build start stop restart logs
