@@ -3,12 +3,10 @@ version: '3.9' # docker 버전
 services:
   mariadb:
     container_name: db
-    build:
-      context: requirements/mariadb/.
-      dockerfile: dockerfile
+    build: ./requirements/mariadb/.
     image: mariadb:v_final
     volumes:
-      - db_data: /var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - wordpress_network
     restart: always
