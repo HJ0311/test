@@ -1,0 +1,11 @@
+# debian 두 번째 최신 안정 버전
+FROM debian:bullseye
+
+RUN apt-get -y update && apt-get install -y mariadb-server && rm -rf /var/lib/apt/lists/*
+
+EXPOSE 3306
+
+# 데이터베이스 초기화 스크립트 복사 (초기 테이블이나 데이터를 미리 생성)
+COPY ./tools/init.sql /docker-entrypoint-initdb.d/
+
+CMD ["mysqld"]
