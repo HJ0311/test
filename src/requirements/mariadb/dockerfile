@@ -3,6 +3,9 @@ FROM debian:bullseye
 
 RUN apt-get -y update && apt-get install -y mariadb-server && rm -rf /var/lib/apt/lists/*
 
+# mariadb 데이터를 저장할 디렉토리 및 권한 설정
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld /var/lib/mysql
+
 EXPOSE 3306
 
 # 데이터베이스 초기화 스크립트 복사 (초기 테이블이나 데이터를 미리 생성)
