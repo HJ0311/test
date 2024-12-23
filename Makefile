@@ -1,4 +1,4 @@
-DOCKER_COMPOSE := docker-compose
+DOCKER_COMPOSE := docker compose
 DOCKER_COMPOSE_FILE := src/docker-compose.yml
 
 # COMMAND
