@@ -11,13 +11,13 @@ services:
       - wordpress_network
     restart: always
     env_file:
-      - ../.env
+      - .env
 
 volumes:
   db_data:
     driver: local
     driver_opts:
-      device: /Users/hyehan/Desktop/Inception_data/mariadb
+      device: /home/hyehan/Desktop/Inception/srcs/mariadb
       o: bind
       type: none
 
