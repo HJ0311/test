@@ -7,7 +7,7 @@ services:
     image: mariadb:v_final
     volumes:
       - db_data:/var/lib/mysql
-      - ./requirements/mariadb/my.cnf:/etc/mysql/my.cnf
+      - ./requirements/mariadb/tools/my.cnf:/etc/mysql/my.cnf
     networks:
       - wordpress_network
     restart: always
