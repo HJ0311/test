@@ -2,26 +2,17 @@ version: '3.9' # docker 버전
 
 services:
   mariadb:
-    container_name: db
-    build: ./requirements/mariadb/.
-    image: mariadb:v_final
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./requirements/mariadb/tools/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - wordpress_network
+    image: debian:bullseye
     restart: always
-    env_file:
-      - ../.env
+    expose:
+      - "3306"
+    networks:
+      - intra
+    tty: true
 
 volumes:
-  db_data:
-    driver: local
-    driver_opts:
-      device: /home/hyehan/Desktop/Inception/srcs/mariadb
-      o: bind
-      type: none
+  db_data: {}
 
 networks:
-  wordpress_network:
+  intra:
     driver: bridge
