@@ -7,7 +7,7 @@ services:
     env_file: .env
     environment:
       - MYSQL_MYSQL_LOCALHOST_USER=${MARIADB_LOCALHOST_USER}
-      - MYSQL_ROOT_PASSWOR=${MARIDB_ROOT_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
     volumes:
       - ${MARIADB_PATH}/data:/var/lib/mysql
     restart: always
