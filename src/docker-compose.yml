@@ -2,7 +2,7 @@ version: "3.9" # docker 버전
 
 services:
   mariadb:
-    image: mariadb:v_final
+    image: mariadb:latest
     container_name: mariadb_container
     ports:
       - "3306:3306"
