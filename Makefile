@@ -1,26 +1,30 @@
-DOCKER_COMPOSE := docker compose
-DOCKER_COMPOSE_FILE := src/docker-compose.yml
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/01 14:18:11 by sahafid           #+#    #+#              #
+#    Updated: 2023/01/07 01:59:32 by sahafid          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# COMMAND
-.PHONY: up down build start stop restart logs
 
-up: # docker compose 서비스 시작 (-f: compose 파일 지정 | -d: 서비스를 백그라운드에서 실행)
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
 
-down: # docker compose 서비스 중지 및 컨테이너 정리
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down
+all : up
 
-build:	#docker compose 이미지를 빌드
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build
+up : 
+	@docker-compose -f ./srcs/docker-compose.yml up -d
 
-start: # 이미 실행 중지된 컨테이너를 시작
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) start
+down : 
+	@docker-compose -f ./srcs/docker-compose.yml down
 
-stop: # 실행 중인 컨테이너를 중지
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) stop
+stop : 
+	@docker-compose -f ./srcs/docker-compose.yml stop
 
-restart: # 컨테이너 재시작
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) restart
+start : 
+	@docker-compose -f ./srcs/docker-compose.yml start
 
-logs: # 실행 중인 컨테이너의 로그 출력
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f
+status : 
+	@docker ps
