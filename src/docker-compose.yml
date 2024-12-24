@@ -5,15 +5,15 @@ services:
     image: mariadb:latest
     container_name: mariadb_container
     ports:
-      - "3306:3306"
+      - "3306"
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE_NAME=${MYSQL_DATABASE_NAME}
       - MYSQL_USER_NAME=${MYSQL_USER_NAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # 초기화 SQL 파일
-      - /media/sf_mariadb/mysql_data:/var/lib/mysql # 공유 폴더를 데이터 디렉토리로 설정
+    # volumes:
+    #   - ./init.sql:/docker-entrypoint-initdb.d/init.sql # 초기화 SQL 파일
+    #   - /media/sf_mariadb/mysql_data:/var/lib/mysql # 공유 폴더를 데이터 디렉토리로 설정
     networks:
       - mariadb_network
     restart: always
