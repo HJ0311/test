@@ -1,50 +1,115 @@
-# Değişkenler
-NAME := ircserv
-BOT_NAME := turco
-SRC_DIR := src
-BOT_DIR := bot
-OBJ_DIR := obj
-BOT_OBJ_DIR := $(BOT_DIR)/obj
-INC_DIR := include
-SRC := $(wildcard $(SRC_DIR)/*.cpp)
-BOT_SRC := $(wildcard $(BOT_DIR)/*.cpp)
-OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-BOT_OBJ := $(BOT_SRC:$(BOT_DIR)/%.cpp=$(BOT_OBJ_DIR)/%.o)
-INC := -I$(INC_DIR)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mbari <mbari@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/04/05 14:21:19 by asfaihi           #+#    #+#              #
+#    Updated: 2022/05/17 15:22:28 by mbari            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# Derleyici ve Derleme Seçenekleri
-CC := c++
-CFLAGS := -Wall -Wextra -Werror -std=c++98 -g
+# Name of the final executable files
+NAME = ./ircserv
 
-# Hedefler
-all: $(NAME)
+# Project's directories
+SRCS_FOLDER = srcs
+OBJECTSDIR = objects
+HEADERS_FOLDER = headers
 
-$(BOT_NAME): $(BOT_OBJ)
-	$(CC) $(CFLAGS) $(INC) $^ -o $@
+# Name of variables
+FLAGS = -Wall -Wextra -Werror
+CPP_STANDARD = -std=c++98
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+RESET = \033[0m
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(INC) $^ -o $@
+# Exercise files variable
+SRC_FILES = Client.cpp \
+Server.cpp \
+commands.cpp \
+getSocket.cpp \
+messagesHandling.cpp \
+pollHandling.cpp \
+requestHandling.cpp \
+Channel.cpp \
+DeezNuts.cpp \
+utils.cpp \
+PartCommand.cpp \
+JoinCommand.cpp \
+KickCommand.cpp \
+PrivmsgCommand.cpp \
+FileTransfer.cpp \
+Request.cpp \
+File.cpp \
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+HEADERS_FILES = headers/Client.hpp \
+headers/Server.hpp \
+headers/Channel.hpp \
+headers/Request.hpp \
+headers/File.hpp \
 
-$(BOT_OBJ_DIR)/%.o: $(BOT_DIR)/%.cpp | $(BOT_OBJ_DIR)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+MAIN = main.cpp
+# Define objects for all sources
+OBJS := $(addprefix $(OBJECTSDIR)/, $(SRC_FILES:.cpp=.o))
+MAIN_OBJ = $(addprefix $(OBJECTSDIR)/, $(MAIN:.cpp=.o))
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+# Name the compiler
+CC = c++
 
-$(BOT_OBJ_DIR):
-	mkdir -p $(BOT_OBJ_DIR)
+# OS specific part
+RM = rm -rf
+RMDIR = rm -rf
+MKDIR = mkdir -p
+MAKE = make -C
+ECHO = /bin/echo
+ERRIGNORE = 2>/dev/null
 
+all: credit $(NAME)
+	@echo "$(BLUE)██████████████████████ Compiling is DONE ███████████████████████$(RESET)"
+	@echo "       Made with love by : \033[1;91mmbari asfaihi abdel-ke\033[m"
+
+head:
+	@echo "$(BLUE)█████████████████████ Making ft_irc Server █████████████████████$(RESET)"
+
+# Phonebook making rules
+$(NAME): head $(OBJS) $(MAIN_OBJ) $(HEADERS_FILES)
+	@$(CC) $(CPP_STANDARD) $(OBJECTSDIR)/main.o $(OBJS) -o $@ -g
+
+$(OBJECTSDIR)/%.o: $(SRCS_FOLDER)/%.cpp $(HEADERS_FILES)
+	@$(MKDIR) $(dir $@)
+	@printf "$(BLUE)█ $(YELLOW)Compiling$(RESET) $<:\r\t\t\t\t\t\t\t..."
+	@$(CC) $(CPP_STANDARD) $(FLAGS) -o $@ -c $< -g
+	@echo "\r\t\t\t\t\t\t\t$(GREEN){DONE}$(BLUE) █$(RESET)"
+
+$(OBJECTSDIR)/%.o: main.cpp $(HEADERS_FILES)
+	@printf "$(BLUE)█ $(YELLOW)Compiling$(RESET) $<:\r\t\t\t\t\t\t\t..."
+	@$(CC) $(CPP_STANDARD) $(FLAGS) -o $@ -c $< -g
+	@echo "\r\t\t\t\t\t\t\t$(GREEN){DONE}$(BLUE) █$(RESET)"
+
+# Remove all objects, dependencies and executable files generated during the build
 clean:
-	rm -rf $(OBJ_DIR)
-	rm -rf $(BOT_OBJ_DIR)
+	@echo "$(RED)deleting$(RESET): " $(OBJECTSDIR)
+	@$(RMDIR) $(OBJECTSDIR)
+
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(BOT_NAME)
+	@echo "$(RED)deleting$(RESET): " $(NAME)
+	@$(RM) $(NAME) $(ERRIGNORE)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# Print Credit
+credit:
+	@echo " ┏━━━┓┏━━━━┓    ┏━━┓┏━━━┓┏━━━┓"
+	@echo " ┃┏━━┛┃┏┓┏┓┃    ┗┫┣┛┃┏━┓┃┃┏━┓┃"
+	@echo " ┃┗━━┓┗┛┃┃┗┛     ┃┃ ┃┗━┛┃┃┃ ┗┛"
+	@echo " ┃┏━━┛  ┃┃       ┃┃ ┃┏┓┏┛┃┃ ┏┓"
+	@echo " ┃┃    ┏┛┗┓┏━━━┓┏┫┣┓┃┃┃┗┓┃┗━┛┃"
+	@echo " ┗┛    ┗━━┛┗━━━┛┗━━┛┗┛┗━┛┗━━━┛"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "━━━━━━━━━┃ Made with love by : \033[1;91mmbari asfaihi abdel-ke\033[m ┃━━━━━━━━━"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
