@@ -9,4 +9,4 @@ EXPOSE 3306
 
 RUN service mysql start && mysql < /var/www/createdb.sql && rm -f /var/www/createdb.sql
 
-CMD ["mysqld_saft"]
+CMD ["mysqld_safe"]
