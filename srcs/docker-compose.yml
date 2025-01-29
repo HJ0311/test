@@ -29,6 +29,6 @@ volumes:
     name: wp
     driver: local
     driver_opts:
+      type: none
+      o: bind
       device: ${WP_DIR}
-        o: bind
-        type: none
