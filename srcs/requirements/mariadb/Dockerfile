@@ -5,6 +5,7 @@ RUN apt-get update -y && \
     apt-get install -y mariadb-server
 
 # 2. MariaDB 설정 파일 및 초기화 SQL 복사
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY ./tools/ /var/www/
 
 # 3. 데이터베이스 디렉토리 초기화
