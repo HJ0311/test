@@ -30,4 +30,5 @@ volumes:
     driver: local
     driver_opts:
       device: ${WP_DIR}
-      
+        o: bind
+        type: none
